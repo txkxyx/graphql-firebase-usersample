@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script defer src="/__/firebase/5.3.1/firebase-app.js"></script>
+    <script defer src="/__/firebase/5.3.1/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+    <script defer src="/__/firebase/init.js"></script>
+  </head>
+
+  <body>
+    <p>Hello, Firebase Hosting!</p>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCAHyHkB6_Cm5hFj9jc_ebQbvF8Bkjl-xs",
+        authDomain: "graphql-sample-f4eef.firebaseapp.com",
+        databaseURL: "https://graphql-sample-f4eef.firebaseio.com",
+        projectId: "graphql-sample-f4eef",
+        storageBucket: "graphql-sample-f4eef.appspot.com",
+        messagingSenderId: "589374426617",
+        appId: "1:589374426617:web:f630258cfec44c747a4128",
+        measurementId: "G-XHBVT3FM46"
+    };
+      firebase.initializeApp(config);
+    </script>
+
+    <script type="text/javascript">
+            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+            var uiConfig = {
+              callbacks: {
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                  console.log(authResult)
+                  console.log(redirectUrl)
+                    firebase.auth().currentUser.getIdToken().then((token) => {
+                        console.log(token)
+                        alert(token)
+                    })
+                  return true;
+                },
+                uiShown: function() {
+                  document.getElementById('loader').style.display = 'none';
+                }
+              },
+              signInFlow: 'popup',
+              signInSuccessUrl: './success.html',
+              signInOptions: [
+                firebase.auth.EmailAuthProvider.PROVIDER_ID,
+              ],
+            };
+            ui.start('#firebaseui-auth-container', uiConfig);
+        </script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>Login succeed</p>
+  </body>
+</html>
+    

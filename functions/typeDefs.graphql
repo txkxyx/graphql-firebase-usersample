@@ -1,0 +1,105 @@
+scalar DateTime
+"""
+FirestoreのUserテーブル
+"""
+type User{
+    """
+    User ID
+    """
+    id: ID!
+    """
+    User Name
+    """
+    name: String!
+    """
+    Login MailAddress
+    """
+    mail: String!
+    """
+    User Icon Image URL
+    """
+    icon: String!
+    """
+    Created At
+    """
+    created: DateTime!
+    """
+    Updated At
+    """
+    updated: DateTime!
+}
+
+"""
+ルートクエリ（検索）
+"""
+type Query {
+    """
+    ログインユーザ取得
+    """
+    me: String
+    """
+    全ユーザー取得
+    """
+    allUsers: [User!]!
+    """
+    ユーザーをIDで検索
+    """
+    selectUserById(id: ID!): User!
+}
+
+"""
+ルートミューテーション（作成、更新、削除）
+"""
+type Mutation {
+    """
+    ユーザー作成
+    """
+    singUpUser(
+        """
+        ユーザー名
+        """
+        name: String!
+        """
+        ログインメールアドレス
+        """
+        mail: String!
+        """
+        パスワード
+        """
+        password: String!
+        """
+        アイコンURL
+        """
+        icon: String!
+    ): User!
+    """
+    ユーザー更新
+    """
+    updateUser(
+        """
+        ユーザーID
+        """
+        id: ID!
+        """
+        ユーザー名
+        """
+        name: String!
+        """
+        ログインメールアドレス
+        """
+        mail: String!
+        """
+        アイコンURL
+        """
+        icon: String!
+    ): User!
+    """
+    ユーザー削除
+    """
+    deleteUser(
+        """
+        ユーザーID
+        """
+        id: ID!
+    ): ID!
+}
