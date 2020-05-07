@@ -1,9 +1,21 @@
+const firebase = require('../fbConfig')
 const functions = require('firebase-functions');
 const admin = require(`firebase-admin`);
 const firestore = admin.firestore();
 const usersRef = firestore.collection('users');
 
 module.exports = {
+    async login(parent, args, { loginUser, req, res }){
+        const token = await firebase.auth().signInWithEmailAndPassword(args.mail, args.password).then((result) => (
+            firebase.auth().currentUser.getIdToken().then(async(token) => {
+                return token;
+            })
+        )).catch((err) => {
+            console.log(err)
+        })
+        console.log(token)
+        return token;
+    },
     async singUpUser(parent, args){
         const singupUser = await admin.auth().createUser({
             email: args.mail,

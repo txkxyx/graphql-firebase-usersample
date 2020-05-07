@@ -34,13 +34,17 @@ type User{
 """
 type Query {
     """
-    ログインユーザ取得
+    ログインユーザー取得
     """
-    me: String
+    me: User!
     """
     全ユーザー取得
     """
     allUsers: [User!]!
+    """
+    全ユーザー数
+    """
+    totalUsers: Int!
     """
     ユーザーをIDで検索
     """
@@ -51,6 +55,19 @@ type Query {
 ルートミューテーション（作成、更新、削除）
 """
 type Mutation {
+    """
+    ログイン
+    """
+    login(
+        """
+        メールアドレス
+        """
+        mail:String!, 
+        """
+        パスワード
+        """
+        password: String!
+    ):String!
     """
     ユーザー作成
     """
